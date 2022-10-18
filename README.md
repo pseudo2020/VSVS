@@ -2,3 +2,6 @@
 
 Models growth of a virus in a patient.
 Does not consider anti-viral drugs taken.
+
+## Requirements
+- matplotlib
