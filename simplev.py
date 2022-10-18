@@ -1,5 +1,4 @@
 import random as r
-import matplotlib.pyplot as plt
 
 
 class NoChildError(Warning):
@@ -55,28 +54,19 @@ class Patient(object):
 
 
 class Simulation(object):
-    def __init__(self):
-        self.timesteps = 300
+    def __init__(
+            self, timesteps=300, virus_max_birth_prob=0.05,
+            virus_clear_prob=0.01, virus_max_pop=10000, n_viruses=1000):
+        self.timesteps = timesteps
         self.results = [None] * self.timesteps
         self.patient = Patient(
-            viruses=[Virus(max_birth_prob=0.05, clear_prob=0.01)] * 1000,
-            max_pop=10000)
-
+            viruses=[Virus(
+                max_birth_prob=virus_max_birth_prob,
+                clear_prob=virus_clear_prob)] * n_viruses,
+            max_pop=virus_max_pop)
         return
 
     def run(self):
         for i in range(self.timesteps):
             self.results[i] = self.patient.update()
-        return
-
-    def show_results(self):
-        for x in self.results:
-            print(f"{x}, ", end="")
-
-    def plot(self):
-        plt.plot(range(self.timesteps), self.results)
-        plt.title("Virus population in patient over time.")
-        plt.ylabel('Population')
-        plt.xlabel('Time')
-        plt.show()
         return
